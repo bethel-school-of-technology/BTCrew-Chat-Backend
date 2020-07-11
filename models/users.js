@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   users.init({
-    content: DataTypes.STRING
+    UserId: DataTypes.INTEGER,
+    Sender: DataTypes.STRING,
+    Recipient: DataTypes.STRING,
+    MessagePrivate: DataTypes.STRING,
+    MessagePublic: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'users',
