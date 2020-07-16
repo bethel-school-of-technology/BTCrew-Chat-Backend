@@ -47,7 +47,7 @@ router.post('/login', function(req, res, next){
       res.json({message: "Login Successful"});
     } else {
       console.log('Wrong Password');
-      res.redirect('http://localhost.com/signup')
+      res.redirect('http://localhost.com/signup');
     }
   });
 });
@@ -55,4 +55,11 @@ router.post('/login', function(req, res, next){
 
 // user profile
 
+
+
+// CRUD
+// .post -> create
+// .put -> update
+// .get -> get one
+// .get -> get all
 module.exports = router;
