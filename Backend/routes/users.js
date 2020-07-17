@@ -7,7 +7,7 @@ var authService = require('../services/auth');
 router.get('/', function(req, res, next) {
 });
 
-
+// sign up routes
 router.post('/signup', function(req,res,next){
   models.users
     .findOrCreate({
@@ -16,7 +16,8 @@ router.post('/signup', function(req,res,next){
       },
       defaults: {
         FirstName: req.body.firstName,
-        Password:req.body.password        
+        LastName: req.body.lastName,
+        Password: authService.hashPassword(req.body.password)       
       }
     })
     .spread(function(result, created){
@@ -28,6 +29,7 @@ router.post('/signup', function(req,res,next){
     });
 });
 
+// login and out routes
 router.post('/login', function(req, res, next){
   models.users.findOne({
     where: {
@@ -52,8 +54,29 @@ router.post('/login', function(req, res, next){
   });
 });
 
+router.get('/logout', function(res, req){
+  res.cookie('jwt', "", {expires: new Date (0)});
+  res.send('Logged Out');
+});
 
 // user profile
+router.get('/profile', function(req, res, next){
+  let token = req.cookies.jwt;
+  if (token) {
+  authService.verifyUser(token)
+  .then(user => {
+    if (user) {
+      res.send(JSON.stringify(user));
+    } else {
+      res.status(401);
+      res.send('Invalid auth');
+    }
+  });
+} else {
+  res.send(401);
+  res.send('Must be logged in');
+  }
+});
 
 
 
