@@ -33,23 +33,24 @@ router.post('/signup', function(req,res,next){
 router.post('/login', function(req, res, next){
   models.users.findOne({
     where: {
-      Username: req.body.username,
-      Password: req.body.password
+      Username: req.body.username
     }
   }).then(user => {
     if (!user){
       console.log("User not found");
       return res.status(401).json({
         message: "Login Failed, Please Try Again"
-      })
-    } 
-    if (user) {
-      let token = authService.signUser(user);
-      res.cookie('jwt', token);
-      res.json({message: "Login Successful"});
+      });
     } else {
-      console.log('Wrong Password');
-      res.redirect('http://localhost.com/signup');
+      let passwordMatch = authService.comparePasswords(req.body.password,user.Password);
+      if (passwordMatch) {
+        let token = authService.signUser(user);
+        res.cookie('jwt', token);
+        res.send('Login Successful');
+      } else {
+        console.log('Wrong Password');
+        res.send('Wrong Password');
+      }
     }
   });
 });
