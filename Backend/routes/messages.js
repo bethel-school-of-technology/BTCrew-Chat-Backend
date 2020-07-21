@@ -6,17 +6,45 @@ var authService = require('../services/auth');
 
 
 
-
-router.post('/', function (req, res, next){
-    models.messages.findAll().then(messages => {
-        res.json(messages)
-    })
+// displays all messages from all users
+router.get('/chatroom', function (req, res, next){
+    models.messages.findAll({
+        where: {
+            UserId: user.UserId,
+            Sender: messages.Sender,
+            MessagePublic: messages.MessagePublic,
+        }
+    }).then( result => res.json('messages', {messages: result}));
 });
 
-router.get('/:id', function(req, res, next){
-    models.messages.findByPk(parseInt(req.params.id)).then(message =>{
-        res.json(message)
-    })
+
+// create messages and send message
+router.get('/createMessage', function (req, res, next) {
+    res.render('messages', { title: 'Send a Message' });
+});
+
+
+router.post('/createMessage', function(req, res, next){
+    let token = req.cookies.jwt;
+    authService.verifyUser(token).then(user => {
+        if (user){
+            models.messages
+            .findOrCreate({
+                where: {
+                    UserId: user.UserId,
+                    Sender: messages.Sender,
+                    MessagePublic: messages.MessagePublic
+                }
+            })
+            .spread(function(result, created){
+                if(created){
+                    res.redirect('/');
+                } else {
+                    res.send('Message failed');
+                }
+            })
+        }
+    });
 });
 
 
