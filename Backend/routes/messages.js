@@ -19,12 +19,12 @@ router.get('/chatroom', function (req, res, next){
 
 
 // create messages and send message
-router.get('/createMessage', function (req, res, next) {
+router.get('/chatroom/createMessage', function (req, res, next) {
     res.render('messages', { title: 'Send a Message' });
 });
 
 
-router.post('/createMessage', function(req, res, next){
+router.post('/chatroom/createMessage', function(req, res, next){
     let token = req.cookies.jwt;
     authService.verifyUser(token).then(user => {
         if (user){
@@ -38,7 +38,7 @@ router.post('/createMessage', function(req, res, next){
             })
             .spread(function(result, created){
                 if(created){
-                    res.redirect('/');
+                    res.redirect('/chatroom');
                 } else {
                     res.send('Message failed');
                 }
@@ -47,6 +47,8 @@ router.post('/createMessage', function(req, res, next){
     });
 });
 
+
+// private message to another user
 
 
 module.exports = router;
