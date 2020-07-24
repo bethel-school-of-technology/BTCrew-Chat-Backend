@@ -26,9 +26,9 @@ router.post('/signup', function(req,res,next){
     })
     .spread(function(result, created){
       if (created){
-        res.json({message: 'User successfully created'});
+        res.send('User successfully created');
       } else {
-        res.json({message: 'This User already exsists.'});
+        res.send('This User already exsists.');
       }
     });
 });
@@ -50,7 +50,7 @@ router.post('/login', function(req, res, next){
         message: "Login Failed, Please Try Again"
       });
     } else {
-      let passwordMatch = authService.comparePasswords(req.body.password,user.Password);
+      let passwordMatch = authService.comparePasswords(req.body.password,user.password);
       if (passwordMatch) {
         let token = authService.signUser(user);
         res.cookie('jwt', token);

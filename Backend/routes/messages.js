@@ -19,26 +19,32 @@ router.get('/chatroom', function (req, res, next){
 
 
 // create messages and send message
-router.get('/chatroom/createMessage', function (req, res, next) {
+router.get('/compose', function (req, res, next) {
     res.render('messages', { title: 'Send a Message' });
 });
 
 
-router.post('/chatroom/createMessage', function(req, res, next){
-   models.messages.findOrCreate({
-       where: {
-           UserId: user.UserId,
-           MessagePublic: req.body.MessagePublic
-       }
-   }) .spread (function(result, created){
-       if (created){
-           res.redirect('/chatroom');
-       } else {
-           res.send('Message Failed to Send');
-       }
-   });
+router.post('/compose', function(req, res, next){
+    let token = req.cookies.jwt;
+    models.users
+    authService.verifyUser(token).then(user => {
+        if(user){
+            models.messages.findOrCreate({
+                where: {
+                    UserId: User.Id,
+                    MessagePublic: req.body.messagePublic
+                }
+            })
+            .spread(function(result, created){
+                if(created){
+                    res.redirect('/messages/chatroom');
+                } else {
+                    res.send('Message Failed to Send');
+                }
+            })
+        }
+    });
 });
-
 
 // private message to another user
 
