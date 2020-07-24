@@ -25,26 +25,18 @@ router.get('/chatroom/createMessage', function (req, res, next) {
 
 
 router.post('/chatroom/createMessage', function(req, res, next){
-    let token = req.cookies.jwt;
-    authService.verifyUser(token).then(user => {
-        if (user){
-            models.messages
-            .findOrCreate({
-                where: {
-                    UserId: user.UserId,
-                    Sender: messages.Sender,
-                    MessagePublic: messages.MessagePublic
-                }
-            })
-            .spread(function(result, created){
-                if(created){
-                    res.redirect('/chatroom');
-                } else {
-                    res.send('Message failed');
-                }
-            })
-        }
-    });
+   models.messages.findOrCreate({
+       where: {
+           UserId: user.UserId,
+           MessagePublic: req.body.MessagePublic
+       }
+   }) .spread (function(result, created){
+       if (created){
+           res.redirect('/chatroom');
+       } else {
+           res.send('Message Failed to Send');
+       }
+   });
 });
 
 
