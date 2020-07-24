@@ -27,7 +27,7 @@
                     "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
-                    "allowNull": false,
+                    "allowNull": true,
                     "field": "createdAt",
                     "seqType": "Sequelize.DATE"
                 },

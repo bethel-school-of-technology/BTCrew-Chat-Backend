@@ -28,6 +28,10 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
