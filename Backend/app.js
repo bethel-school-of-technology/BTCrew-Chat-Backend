@@ -33,8 +33,8 @@ app.set('view engine', 'jade');
 
 
 app.use('/', indexRouter);
-app.use('./routes/users.js', usersRouter);
-app.use('./routes/messages.js', messagesRouter);
+app.use('/users', usersRouter);
+app.use('/messages', messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
