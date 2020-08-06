@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var models = require('./models');
 const cors = require('cors');
-const port = 3000;
+const port = 4000;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,8 +17,8 @@ app.use(cors())
 app.listen(port, () => console.log(`http://localhost:${port}`))
 
 // view engine setup
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -50,5 +50,5 @@ models.sequelize.sync().then(function(){
 });
 
 
-module.exports = App;
+module.exports = app;
 
