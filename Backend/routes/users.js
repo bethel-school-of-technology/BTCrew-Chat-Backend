@@ -59,6 +59,10 @@ router.post('/login', function(req, res, next){
         console.log('Wrong Password');
         res.send('Wrong Password');
       }
+
+      console.log('Wrong Password');
+      //res.redirect('http://localhost.com/signup')
+
     }
   });
 });

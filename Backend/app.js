@@ -5,7 +5,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var models = require('./models');
+<<<<<<< HEAD
 var cors = require('cors');
+=======
+var bodyParser = require('body-parser');
+>>>>>>> 9776fc7b5af8b1aa096689adb61636ea22e9893e
 
 
 var indexRouter = require('./routes/index');
@@ -24,8 +28,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+<<<<<<< HEAD
 app.use(bodyParser.json());
 app.use(cors());
+=======
+app.use(bodyParser());
+>>>>>>> 9776fc7b5af8b1aa096689adb61636ea22e9893e
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', __dirname + '/views');
