@@ -11,7 +11,7 @@ var authService = {
             },
             'secretkey',
             {
-                expiresIn: '2h'
+                expiresIn: '1h'
             }
         );
         return token;

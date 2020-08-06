@@ -16,7 +16,7 @@ router.post('/signup', function(req,res,next){
   models.users
     .findOrCreate({
       where: {
-        Username: req.body.username
+        Username: req.body.Username
       },
       defaults: {
         FirstName: req.body.firstName,
@@ -41,7 +41,7 @@ router.get('/login', function(req, res, next){
 router.post('/login', function(req, res, next){
   models.users.findOne({
     where: {
-      Username: req.body.username
+      UserId: req.body.userid
     }
   }).then(user => {
     if (!user){
