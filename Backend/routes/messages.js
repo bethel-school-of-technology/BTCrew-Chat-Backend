@@ -10,9 +10,9 @@ var authService = require('../services/auth');
 router.get('/chatroom', function (req, res, next){
     models.messages.findAll({
         where: {
-            UserId: user.UserId,
-            Sender: messages.Sender,
-            MessagePublic: messages.MessagePublic,
+            Username: user.username,
+            Sender: messages.sender,
+            MessagePublic: messages.messagepublic,
         }
     }).then( result => res.json('messages', {messages: result}));
 });
@@ -31,13 +31,13 @@ router.post('/compose', function(req, res, next){
         if(user){
             models.messages.findOrCreate({
                 where: {
-                    UserId: User.Id,
-                    MessagePublic: req.body.messagePublic
+                    UserId: user.userId,
+                    MessagePublic: req.body.messagepublic
                 }
             })
             .spread(function(result, created){
                 if(created){
-                    res.redirect('/messages/chatroom');
+                    res.redirect('/users/chatroom');
                 } else {
                     res.send('Message Failed to Send');
                 }

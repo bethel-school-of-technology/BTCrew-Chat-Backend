@@ -44,7 +44,6 @@ router.post('/login', function(req, res, next){
       Username: req.body.username
     }
   }).then(user => {
-    console.log(user)
     if (!user){
       console.log("User not found");
       return res.status(401).json({
