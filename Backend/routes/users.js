@@ -16,7 +16,7 @@ router.post('/signup', function(req,res,next){
   models.users
     .findOrCreate({
       where: {
-        Username: req.body.Username
+        Username: req.body.username
       },
       defaults: {
         FirstName: req.body.firstName,
@@ -34,23 +34,24 @@ router.post('/signup', function(req,res,next){
 });
 
 // login and out routes
-router.get('/login', function(req, res, next){
-  res.render('login');
-});
+// router.get('/login', function(req, res, next){
+//   res.render('login');
+// });
 
 router.post('/login', function(req, res, next){
   models.users.findOne({
     where: {
-      UserId: req.body.userid
+      Username: req.body.username
     }
   }).then(user => {
+    console.log(user)
     if (!user){
       console.log("User not found");
       return res.status(401).json({
         message: "Login Failed, Please Try Again"
       });
     } else {
-      let passwordMatch = authService.comparePasswords(req.body.password,user.password);
+      let passwordMatch = authService.comparePasswords(req.body.password,user.Password);
       if (passwordMatch) {
         let token = authService.signUser(user);
         res.cookie('jwt', token);
@@ -59,10 +60,6 @@ router.post('/login', function(req, res, next){
         console.log('Wrong Password');
         res.send('Wrong Password');
       }
-
-      console.log('Wrong Password');
-      //res.redirect('http://localhost.com/signup')
-
     }
   });
 });
