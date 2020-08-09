@@ -3,14 +3,8 @@ var router = express.Router();
 var models = require('../models');
 var authService = require('../services/auth');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-});
 
-// sign up routes
-router.get('/signup', function(req, res, next){
-  res.render('signup');
-});
+
 
 router.post('/signup', function(req,res,next){
   models.users
@@ -26,17 +20,18 @@ router.post('/signup', function(req,res,next){
     })
     .spread(function(result, created){
       if (created){
-        res.send('User successfully created');
+        res.json({
+          message:'User successfully created',
+          status: 200
+        });
       } else {
-        res.send('This User already exsists.');
+        res.json({
+          message:'This User already exsists.',
+          status: 300
+        });
       }
     });
 });
-
-// login and out routes
-// router.get('/login', function(req, res, next){
-//   res.render('login');
-// });
 
 router.post('/login', function(req, res, next){
   models.users.findOne({
@@ -54,10 +49,17 @@ router.post('/login', function(req, res, next){
       if (passwordMatch) {
         let token = authService.signUser(user);
         res.cookie('jwt', token);
-        res.send('Login Successful');
+        res.json({
+          message:'Login Successful',
+          status: 200,
+          jwt: token
+        });
       } else {
         console.log('Wrong Password');
-        res.send('Wrong Password');
+        res.json({
+          message:'Wrong Password',
+          status: 400
+        });
       }
     }
   });

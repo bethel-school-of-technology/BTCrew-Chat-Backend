@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   messages.init({
-    UserId: {
+    MessageId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -22,8 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     Sender: DataTypes.STRING,
     Recipient: DataTypes.STRING,
-    MessagePrivate: DataTypes.STRING,
-    MessagePublic: DataTypes.STRING
+    Message: DataTypes.STRING,
+    Private: DataTypes.BOOLEAN,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'messages',

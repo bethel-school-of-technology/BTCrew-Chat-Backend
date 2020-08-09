@@ -11,10 +11,9 @@ router.get('/chatroom', function (req, res, next){
     models.messages.findAll({
         where: {
             Username: user.username,
-            Sender: messages.sender,
             MessagePublic: messages.messagepublic,
         }
-    }).then( result => res.json('messages', {messages: result}));
+    }).then( messagesfound => res.json({messages: messagesfound}));
 });
 
 
@@ -31,8 +30,8 @@ router.post('/compose', function(req, res, next){
         if(user){
             models.messages.findOrCreate({
                 where: {
-                    UserId: user.userId,
-                    MessagePublic: req.body.messagepublic
+                    UserId: req.body.UserId,
+                    MessagePublic: req.body.MessagePublic
                 }
             })
             .spread(function(result, created){

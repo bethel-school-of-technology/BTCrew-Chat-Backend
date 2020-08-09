@@ -3,11 +3,11 @@
         "messages": {
             "tableName": "messages",
             "schema": {
-                "UserId": {
+                "MessageId": {
                     "allowNull": false,
                     "autoIncrement": true,
                     "primaryKey": true,
-                    "field": "UserId",
+                    "field": "MessageId",
                     "seqType": "Sequelize.INTEGER"
                 },
                 "Sender": {
@@ -18,23 +18,24 @@
                     "field": "Recipient",
                     "seqType": "Sequelize.STRING"
                 },
-                "MessagePrivate": {
-                    "field": "MessagePrivate",
+                "Message": {
+                    "field": "Message",
                     "seqType": "Sequelize.STRING"
                 },
-                "MessagePublic": {
-                    "field": "MessagePublic",
-                    "seqType": "Sequelize.STRING"
+                "Private": {
+                    "field": "Private",
+                    "seqType": "Sequelize.BOOLEAN"
                 },
-                "createdAt": {
+                "UserId": {
+                    "field": "UserId",
                     "allowNull": true,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
+                    "references": {
+                        "model": "users",
+                        "key": "UserId"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -65,36 +66,10 @@
                 "Password": {
                     "field": "Password",
                     "seqType": "Sequelize.STRING"
-                },
-                "Sender": {
-                    "field": "Sender",
-                    "seqType": "Sequelize.STRING"
-                },
-                "Recipient": {
-                    "field": "Recipient",
-                    "seqType": "Sequelize.STRING"
-                },
-                "MessagePrivate": {
-                    "field": "MessagePrivate",
-                    "seqType": "Sequelize.STRING"
-                },
-                "MessagePublic": {
-                    "field": "MessagePublic",
-                    "seqType": "Sequelize.STRING"
-                },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 3
 }

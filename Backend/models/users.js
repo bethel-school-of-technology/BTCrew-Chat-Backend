@@ -26,11 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    Password: DataTypes.STRING,
-    Sender: DataTypes.STRING,
-    Recipient: DataTypes.STRING,
-    MessagePrivate: DataTypes.STRING,
-    MessagePublic: DataTypes.STRING
+    Password: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'users',
