@@ -71,7 +71,6 @@ router.get('/logout', function(res, req){
 });
 
 
-
 // CRUD
 // .post -> create
 // .put -> update
