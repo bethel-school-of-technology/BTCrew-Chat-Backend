@@ -4,8 +4,6 @@ var models = require('../models');
 var authService = require('../services/auth');
 
 
-
-
 router.post('/signup', function(req,res,next){
   models.users
     .findOrCreate({
@@ -65,11 +63,50 @@ router.post('/login', function(req, res, next){
   });
 });
 
+router.get('/profile', function(req, res, next){
+  let token = getToken(req);
+  if (token) {
+      console.log(req.body)
+      authService.verifyUser(token).then(user => {
+          if(user){
+              res.json({
+                message: "User found successfully",
+                status: 200,
+                user
+              })
+          } else {
+            res.json({
+              message: "token invalid",
+              status: 400
+            })
+          }
+      });
+  } else {
+      res.json({
+          message: "token not found",
+          status: 400
+      })
+  }
+});
+
+
 router.get('/logout', function(res, req){
   res.cookie('jwt', "", {expires: new Date (0)});
   res.send('Logged Out');
 });
 
+
+
+function getToken(req) {
+  console.log("Calling Token")
+  let token = req.headers['authorization'];
+  if (token) {
+      if (token.startsWith('Bearer')) {
+          token = token.slice(7, token.length)
+      }
+  }
+  return (token) ? token : null;
+}
 
 // CRUD
 // .post -> create
