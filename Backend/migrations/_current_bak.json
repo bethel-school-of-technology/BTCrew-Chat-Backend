@@ -1,0 +1,91 @@
+{
+    "tables": {
+        "messages": {
+            "tableName": "messages",
+            "schema": {
+                "MessageId": {
+                    "allowNull": false,
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "field": "MessageId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Sender": {
+                    "field": "Sender",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Recipient": {
+                    "field": "Recipient",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Message": {
+                    "field": "Message",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Private": {
+                    "field": "Private",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "UserId": {
+                    "field": "UserId",
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "UserId"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "UserId": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false,
+                    "field": "UserId",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "FirstName": {
+                    "field": "FirstName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "LastName": {
+                    "field": "LastName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Username": {
+                    "unique": true,
+                    "field": "Username",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Password": {
+                    "field": "Password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Sender": {
+                    "field": "Sender",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Recipient": {
+                    "field": "Recipient",
+                    "seqType": "Sequelize.STRING"
+                },
+                "MessagePrivate": {
+                    "field": "MessagePrivate",
+                    "seqType": "Sequelize.STRING"
+                },
+                "MessagePublic": {
+                    "field": "MessagePublic",
+                    "seqType": "Sequelize.STRING"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 2
+}
